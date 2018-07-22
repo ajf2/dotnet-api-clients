@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace ApiClientsTests {
   [TestClass]
   public class PoliceUkApiClientTests {
+    PoliceUkApiClient api = new PoliceUkApiClient();
+
     [TestMethod]
     public void TestAvailability() {
-      var api = new PoliceUkApiClient();
       var availability = api.GetAvailability();
       Assert.IsTrue(availability.Count() > 0);
     }
@@ -20,7 +21,6 @@ namespace ApiClientsTests {
     // For reference: https://data.police.uk/docs/api-call-limits/
     [TestMethod]
     public void HandlesTooManyRequestsErrorResponse() {
-      var api = new PoliceUkApiClient();
       var tasks = new List<Task>();
       for(int i = 0; i < 1000; i++) {
         tasks.Add(api.GetAvailabilityAsync());
@@ -31,7 +31,6 @@ namespace ApiClientsTests {
 
     [TestMethod]
     public void TestForceMethods() {
-      var api = new PoliceUkApiClient();
       var forces = api.GetForces();
       var detail = api.GetForce(forces.First().Id);
       var officers = api.GetSeniorOfficers("leicestershire");
