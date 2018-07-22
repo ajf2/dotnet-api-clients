@@ -15,7 +15,18 @@ namespace ApiClients {
         BaseUrl = new Uri(baseUrl)
       };
       var response = client.Execute<T>(request);
+      return HandleResponse(response);
+    }
 
+    private async Task<T> ExecuteAsync<T>(RestRequest request) where T : new() {
+      var client = new RestClient {
+        BaseUrl = new Uri(baseUrl)
+      };
+      var response = await client.ExecuteTaskAsync<T>(request);
+      return HandleResponse(response);
+    }
+
+    private T HandleResponse<T>(IRestResponse<T> response) {
       if (response.ErrorException != null) {
         const string message = "Error retrieving response.  Check inner details for more info.";
         var exceptionFromApi = new ApplicationException(message, response.ErrorException);
@@ -33,6 +44,13 @@ namespace ApiClients {
         Resource = "crimes-street-dates"
       };
       return Execute<List<Availability>>(request);
+    }
+
+    public Task<List<Availability>> GetAvailabilityAsync() {
+      var request = new RestRequest {
+        Resource = "crimes-street-dates"
+      };
+      return ExecuteAsync<List<Availability>>(request);
     }
 
     /// <summary>
