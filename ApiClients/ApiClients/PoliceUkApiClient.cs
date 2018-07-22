@@ -62,5 +62,42 @@ namespace ApiClients {
     public IEnumerable<Availability> GetCrimesStreetDates() {
       return GetAvailability();
     }
+
+    /// <summary>
+    /// Gets a list of all the police forces available via the API. Unique force identifiers obtained here are used in requests for force-specific data via other methods.
+    /// </summary>
+    /// <returns></returns>
+    public IEnumerable<Force> GetForces() {
+      var request = new RestRequest {
+        Resource = "forces"
+      };
+      return Execute<List<Force>>(request);
+    }
+
+    /// <summary>
+    /// Gets full information about a specific force.
+    /// </summary>
+    /// <param name="id">The id of the force to look up.</param>
+    /// <returns>The detail of the specified force.</returns>
+    public ForceDetail GetForce(string id) {
+      var request = new RestRequest {
+        Resource = "forces/{id}"
+      };
+      request.AddUrlSegment("id", id);
+      return Execute<ForceDetail>(request);
+    }
+
+    /// <summary>
+    /// Gets a list of all the senior officers of a specfic force.
+    /// </summary>
+    /// <param name="id">The id of the force to look up.</param>
+    /// <returns>The list of the specified force's senior officers.</returns>
+    public IEnumerable<SeniorOfficer> GetSeniorOfficers(string id) {
+      var request = new RestRequest {
+        Resource = "forces/{id}/people"
+      };
+      request.AddUrlSegment("id", id);
+      return Execute<List<SeniorOfficer>>(request);
+    }
   }
 }

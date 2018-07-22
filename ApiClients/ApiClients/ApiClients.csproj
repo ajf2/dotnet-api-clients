@@ -45,6 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\PoliceUk\Availability.cs" />
+    <Compile Include="Models\PoliceUk\ContactDetails.cs" />
+    <Compile Include="Models\PoliceUk\EngagementMethod.cs" />
+    <Compile Include="Models\PoliceUk\Force.cs" />
+    <Compile Include="Models\PoliceUk\ForceDetail.cs" />
+    <Compile Include="Models\PoliceUk\SeniorOfficer.cs" />
     <Compile Include="PoliceUkApiClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

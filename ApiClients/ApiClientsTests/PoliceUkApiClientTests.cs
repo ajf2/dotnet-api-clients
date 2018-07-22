@@ -28,5 +28,16 @@ namespace ApiClientsTests {
       Task.WaitAll(tasks.ToArray());
       Assert.IsTrue(tasks.All(t => t.Status == TaskStatus.RanToCompletion));
     }
+
+    [TestMethod]
+    public void TestForceMethods() {
+      var api = new PoliceUkApiClient();
+      var forces = api.GetForces();
+      var detail = api.GetForce(forces.First().Id);
+      var officers = api.GetSeniorOfficers("leicestershire");
+      Assert.IsTrue(forces.Count() > 0);
+      Assert.AreEqual(forces.First().Id, detail.Id);
+      Assert.IsTrue(officers.Count() > 0);
+    }
   }
 }
