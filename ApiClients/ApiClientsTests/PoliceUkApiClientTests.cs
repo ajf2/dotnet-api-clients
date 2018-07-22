@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using ApiClients;
+﻿using ApiClients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace ApiClientsTests {
   [TestClass]
@@ -10,7 +8,7 @@ namespace ApiClientsTests {
     [TestMethod]
     public void TestAvailability() {
       var api = new PoliceUkApiClient();
-      IEnumerable<dynamic> availability = api.GetAvailability();
+      var availability = api.GetAvailability();
       Assert.IsTrue(availability.Count() > 0);
     }
   }
