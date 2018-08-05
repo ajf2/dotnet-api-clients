@@ -67,11 +67,11 @@ namespace ApiClients {
     /// Gets a list of all the police forces available via the API. Unique force identifiers obtained here are used in requests for force-specific data via other methods.
     /// </summary>
     /// <returns></returns>
-    public IEnumerable<Force> GetForces() {
+    public Task<List<Force>> GetForcesAsync() {
       var request = new RestRequest {
         Resource = "forces"
       };
-      return Execute<List<Force>>(request);
+      return ExecuteAsync<List<Force>>(request);
     }
 
     /// <summary>
@@ -79,12 +79,12 @@ namespace ApiClients {
     /// </summary>
     /// <param name="id">The id of the force to look up.</param>
     /// <returns>The detail of the specified force.</returns>
-    public ForceDetail GetForce(string id) {
+    public Task<ForceDetail> GetForceAsync(string id) {
       var request = new RestRequest {
         Resource = "forces/{id}"
       };
       request.AddUrlSegment("id", id);
-      return Execute<ForceDetail>(request);
+      return ExecuteAsync<ForceDetail>(request);
     }
 
     /// <summary>
@@ -92,12 +92,12 @@ namespace ApiClients {
     /// </summary>
     /// <param name="id">The id of the force to look up.</param>
     /// <returns>The list of the specified force's senior officers.</returns>
-    public IEnumerable<SeniorOfficer> GetSeniorOfficers(string id) {
+    public Task<List<SeniorOfficer>> GetSeniorOfficersAsync(string id) {
       var request = new RestRequest {
         Resource = "forces/{id}/people"
       };
       request.AddUrlSegment("id", id);
-      return Execute<List<SeniorOfficer>>(request);
+      return ExecuteAsync<List<SeniorOfficer>>(request);
     }
   }
 }

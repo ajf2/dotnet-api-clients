@@ -1,5 +1,4 @@
 ﻿using ApiClients;
-using ApiClients.Models.PoliceUk;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,10 +29,10 @@ namespace ApiClientsTests {
     }
 
     [TestMethod]
-    public void TestForceMethods() {
-      var forces = api.GetForces();
-      var detail = api.GetForce(forces.First().Id);
-      var officers = api.GetSeniorOfficers("leicestershire");
+    public async Task TestForceMethods() {
+      var forces = await api.GetForcesAsync();
+      var detail = await api.GetForceAsync(forces.First().Id);
+      var officers = await api.GetSeniorOfficersAsync("leicestershire");
       Assert.IsTrue(forces.Count() > 0);
       Assert.AreEqual(forces.First().Id, detail.Id);
       Assert.IsTrue(officers.Count() > 0);
