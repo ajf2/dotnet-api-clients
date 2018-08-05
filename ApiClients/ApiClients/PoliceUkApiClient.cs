@@ -54,6 +54,41 @@ namespace ApiClients {
     }
 
     /// <summary>
+    /// Gets a list of crimes at street-level; either within a 1 mile radius of a single point,
+    /// or within a custom area.
+    /// </summary>
+    /// <remarks>The street-level crimes returned in the API are only an approximation of where
+    /// the actual crimes occurred, they are not the exact locations.
+    /// See https://data.police.uk/about/#location-anonymisation for more information
+    /// about location anonymisation.
+    /// If you're allowing users to search for locations in Scotland, please make it clear that,
+    /// since only the British Transport Police provide data for Scotland,
+    /// crime levels may appear much lower than they really are.</remarks>
+    /// <param name="lat">Latitude of the requested crime area.</param>
+    /// <param name="lng">Longitude of the requested crime area.</param>
+    /// <param name="date">Limit results to a specific month. The latest month will be shown by default.</param>
+    /// <returns></returns>
+    public Task<List<StreetLevelCrime>> GetStreetLevelCrimes(double lat, double lng, DateTime? date = null) {
+      var request = new RestRequest {
+        Resource = "crimes-street/all-crime"
+      };
+      request.AddQueryParameter("lat", lat.ToString());
+      request.AddQueryParameter("lng", lng.ToString());
+      request.AddQueryParameter("date", date?.ToString("yyyy-MM") ?? "");
+      return ExecuteAsync<List<StreetLevelCrime>>(request);
+    }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="poly">The lat/lng pairs which define the boundary of the custom area.</param>
+    /// <param name="date">Limit results to a specific month. The latest month will be shown by default</param>
+    /// <returns></returns>
+    //public Task<dynamic> GetStreetLevelCrimes(IEnumerable<(double lat, double lng)> poly, DateTime? date = null) {
+
+    //}
+
+    /// <summary>
     /// Overload of GetAvailability.
     /// Gets a list of force IDs for forces that have provided stop and search data for this month.
     /// </summary>

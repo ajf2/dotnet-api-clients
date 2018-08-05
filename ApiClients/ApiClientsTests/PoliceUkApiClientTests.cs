@@ -1,5 +1,6 @@
 ﻿using ApiClients;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -36,6 +37,18 @@ namespace ApiClientsTests {
       Assert.IsTrue(forces.Count() > 0);
       Assert.AreEqual(forces.First().Id, detail.Id);
       Assert.IsTrue(officers.Count() > 0);
+    }
+
+    [TestMethod]
+    public async Task TestCrimeMethods() {
+      var slc_specific = await api.GetStreetLevelCrimes(52.629729, -1.131592, new DateTime(2017, 01, 01));
+      var v = slc_specific.Where(c => c.OutcomeStatus != null);
+      //var slc_custom = await api.GetStreetLevelCrimes();
+      //var streetLevelOutcomes = await api.GetStreetLevelOutcomes();
+      //var crimesAtLocation = await api.GetCrimesAtLocation();
+      //var crimeCategories = await api.GetCrimeCategories();
+      //var lastUpdated = await api.GetLastUpdated();
+      //var outcomes = await api.GetOutcomes();
     }
   }
 }
